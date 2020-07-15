@@ -18,7 +18,7 @@ tools/extract_wavs.sh tools/text/4.tsv tools/video/4_project.mp4 data/train/wavs
 echo "Succeeded :("
 
 ############################## wav.scp ########################################
-create the wav.scp files (test).
+# create the wav.scp files (test).
 
 echo "Creating wav.scp"
 
