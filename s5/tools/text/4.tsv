@@ -1,0 +1,58 @@
+0.00	10.19	in this video i will show how to finalize the data structure how to finalize the directory structure for the recipy
+11.97	20.67	first of all we need to attach all shared tools from kaldi to our recipy
+22.67	37.06	eh the tutorial tells us to copy the tools from wall street journal but we will just create eh symbolic links
+38.12	43.56	the scripts from kaldi are stored in two directories utils and steps
+47.05	50.18	let's connect to phoenix server
+50.19	53.62	change the directory
+57.16	59.80	and go our recipy
+63.78	74.57	and let's take a look for example to let's take a look at another recipy
+77.04	88.58	it is called mini librispeech and it is actually the go to recipy for all beginners
+88.59	97.60	it is a model recipy this is recipy which servers as a model for all new recipies
+101.82	113.53	here we can see this symlink utils which points to wall street journal utils and steps which points to wall street journal steps
+114.09	130.36	for historical reasons all common or shared kaldi scripts are kept in wall street journal recipy and all other recipies just link to this directories
+130.76	133.76	we will do the same in our recipy
+146.90	150.65	now we can access utils from our recipy
+151.00	162.16	and the first thing which that we will do will be validation of our data from previous step
+164.21	173.36	it is quite important to run this script and another one fix data directory
+173.49	183.48	on the data after you think that you finished the preparation and data is ready to be used
+183.97	205.67	quite often it happens that many mistakes in data preparation are not visible until some kaldi script executes validation or fixes it
+205.68	219.06	and when it happens accidentally or suddenly usually you are not around to see this
+219.07	232.89	and it takes time to find out what actually happened so it's good idea to run these scripts right away to see if everything is good with the data
+235.22	243.41	aha okay so the first complaint is that we don't need don't have speaker to utterance mapping
+246.21	260.39	we can actually apply fix data dir and when it sees that this file is missing it generates it because it's possible to generate it from utterance to speaker mapping
+261.54	268.96	it is just inverse of speaker to utterance
+268.97	287.43	we can see that it also sorts it in proper way checks that all files that list attributes of utterances actually list some common utterances
+287.46	303.09	and removes utterances which are not mentioned in some of the files in this case there were no such utterances and all one thousand five hundred utterances were saves or or kept
+303.10	305.08	now we can validate again
+307.46	312.09	now we see that it can not find features file
+313.79	325.23	and it's actually normal for the moment because we have not yet run the feature extraction we can specify this option
+327.54	343.93	now it tells us that data directories successfully validated and it means that most likely we will be able to use these data directory in our recipy and all the following scripts and that there will be no problem
+346.15	351.62	we can do the same for the test
+353.41	356.54	five hundred utterances are kept
+364.44	372.82	and it's validated successfully but with one warning that we only have one speaker
+372.83	386.31	but we know that's alright because it was our intention to use very small dataset and to use three speakers for training and one separate speaker for testing
+391.72	407.48	okay another thing is that this tutorial mentions voxforge many times as a model recipy but it's already out of date and current recommended recipy is mini librispeech as i mentioned
+410.60	418.75	next thing that we need to copy is a scoring script and we will copy it from mini librispeech again
+434.39	437.83	we also need to create a local directory
+437.84	454.25	local directory usually contains scripts which are specific for this recipy and not shared between many recipies as opposite to scripts in utils and steps directories
+465.81	470.83	next step is language model toolkit installation
+473.11	478.60	we need to go to kaldi tools and check this script
+491.15	494.31	let's read the comments inside
+503.03	508.51	so we need to be in tools directory
+510.21	514.88	this is true we are there
+515.44	520.02	and we also need to have the source code for this toolkit
+521.06	533.28	it can not be installed automatically and normally you would need to go to this website fill out some form and download it and save it here
+533.65	544.73	but at ims we already downloaded this archive and we can copy it
+568.78	571.04	let's try to run it
+686.79	691.67	alright it looks like it finished successfully
+692.39	696.93	let's proceed further
+700.35	705.55	now we need to create two configuration files
+706.34	718.74	the first one is decode config it's used for the script which runs decoding obviously
+719.35	723.24	but first we need to go back to the recipy
+730.35	733.29	and create conf directory
+735.96	745.63	we will actually just copy the configs from the mini librispeech recipe again
+761.31	767.00	as you can see there is nothing to read in it
+767.53	770.89	and i think it's okay
+772.23	776.75	and another one is mfcc extraction config
+791.18	794.69	this one actually contains one option
+804.89	807.39	see you in the next video

@@ -1,0 +1,57 @@
+0.03	4.44	in this video we will talk briefly about kaldi directories
+4.47	8.89	as you can see there are several directories at the top level of kaldi
+8.90	21.48	most important of them are probably egs with example scripts for building of asr systems using various corpora
+21.49	25.06	src with actual kaldi source code
+25.07	35.00	and tools with additional tools and components needed to run the recipies
+40.13	47.96	there are few more of them but most likely you will not need them in this course
+48.81	57.00	eh let's check what we can see in the examples directory
+59.50	64.29	there are a lot of other directories
+65.58	69.11	this directories are called recipies
+69.20	83.11	each of them contains a description of the process to build asr system using one corpus or several corpora together
+83.12	105.02	eh most important of them are wsj which describes the wall street journal asr system or asr based on the wall street journal corpus which is very popular benchmark dataset for speech recognition
+105.03	114.90	and another one is mini librispeech which serves as eh main example of building recipies in kaldi
+115.20	127.49	thang will talk about mini librispeech recipy in the next module we can take a look in wall street journal recipy
+129.48	136.95	so as you can see there is s5 directory in each of the recipy
+136.96	148.79	currently it doesn't mean anything most likely if you look for any other recipy it will be also in s5
+151.10	159.65	some recipies for example tedlium have several directories
+159.66	169.80	you can see that they correspond to different revisions of the recipy or different versions of the recipy
+171.54	176.67	i think that is enough information about examples
+178.55	185.67	we can go to the source code take a look into its contents
+185.96	200.94	so we've seen already the configure script which configures the kaldi to be run on certain system or our system for example
+200.95	218.31	it also has documentation directory ahm and many more directories which can be divided to two groups
+218.32	234.63	one of them are library directories for example ahm hmm is a library with libraries for hidden markov model ahm functions
+236.00	247.45	and the result of compilation is this lib kaldi hmm dot so file which is binary library file in linux
+247.46	264.98	so stands for shared objects its it just packs all the functions and objects from these c++ and headers files as a binary file
+266.21	273.05	in order to use these binary libraries we need programs
+273.06	285.50	the programs are also called binaries in linux and they are stored in bin directories in kaldi
+285.51	300.59	for example we can we will use ah gmm bin programs which are programs or binaries working with gaussian mixture model
+306.90	317.17	so here you can see cc files which are c++ code or c++ source code files
+317.18	324.52	some there should be some h files but i don't see them
+325.28	334.10	oh okay i think h files are only used in the libraries for example in gmm directory
+336.29	338.85	like this one
+339.20	353.95	and there is usually a makefile which describes the objects which can be produced based on the files in this directory and how they should be produced
+358.53	365.51	the dot a files are something temporary you don't need to know about them
+365.52	370.79	dot o is also something temporary it's output object from the compiler
+370.80	378.44	mostly what we will be working with is binary files
+379.78	383.53	something like gmm decode simple
+385.03	394.02	we know that it works with gaussian mixture model because it starts with gmm we know it is supposed to do
+394.03	397.81	it is supposed to do the decoding process
+397.82	423.89	and the rest is just a additional information about how exactly or it is doing it or what is other ehm relevant information you can need you might need when running this binary or searching for binary
+423.90	446.33	why is it actually why it is actually important to know where is what is because when you develop a new script for kaldi most likely you need to use existing binaries to interact with kaldi files
+446.34	458.29	and in order to check if what are possibilities you would need to go to this bin directories and see if there is anything what you can use
+459.55	472.46	and if you think that some program probably does what you need you can run this program without any ehm arguments and see the help
+473.82	488.02	it will tell you what it actually does decode features using gmm based model ehm and it will tell you how to run it
+488.35	499.75	so you see that in this case you can specify several options from here and from here
+499.76	505.12	you would need to specify the model in fst format
+506.42	516.32	and several ehm actually it's only one r specifier
+516.33	534.34	r specifier stands for reading specifier it means that it is a string which would describe how to read information how to read the input information for this program
+534.35	546.40	w specifier is writing specifier it means that is some string which describes where and how to write the output of this program
+546.41	555.60	in this case it could be words writing specifier which describes where to write the decoded words from the features
+555.61	567.88	and also alignments eh specifier where alignments would be written or lattice specifier where lattice would be written
+567.90	583.31	the square brackets denote non essential non required parameters so if you don't specify alignments or lattice then they will not be written
+583.32	592.59	if you don't specify the words specifier the program will fail because this parameter is required
+595.06	605.03	and you can see similar structure bin programs many other bin directories
+614.15	632.14	this bin directory does not correspond to any particular library but it contains many useful programs such as compute word error rate define the dimension of matrix and so on
+637.81	642.27	okay i think that's it
+643.37	649.65	the next video we will start to work on our first speech recognition system
+649.80	652.86	see you in the next video

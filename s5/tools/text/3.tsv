@@ -1,0 +1,140 @@
+0.00	4.51	in this video i will show you how to prepare data for kaldi
+4.52	17.95	first of all for speech recognition we would need audio recordings with duration from two to thirty seconds roughly and transcriptions for them
+18.64	27.70	this tutorial suggests to use recordings of spoken digits and they also suggest to make it on your own
+28.33	34.36	eh i was a bit lazy and found a free pre-recorded spoken digits dataset
+63.94	85.70	you can use ctrl r to search for commands in the history for example i can find eh cd command to change directory to the teamlab directory or to connect to phoenix
+136.91	141.47	here you can see the individual recording files
+144.97	153.03	from the documentation i know that eh the naming works as follows
+153.04	159.24	the first part is the digit which is pronounced in this audio file
+159.25	166.51	the second part is the name of speaker and the third part is the id of this recording
+175.30	178.74	and we have two thousand recordings
+178.75	182.88	five hundred recordings per speaker
+185.16	194.15	yeah as you can see there are four speakers theo yweweler nicolas and jackson
+195.20	204.09	i would suggest you to use the same dataset so that you can compare results and make sure that everything is correct
+217.99	223.55	we will start making our own recipy in the egs directory
+235.16	241.42	let's create s5 directory just to be uniform with other recipies
+241.61	246.59	as i mentioned before it doesn't mean anything it's just a tradition
+267.34	282.32	okay here the tutorial tells how to store the data we actually will not do it because we already have data in separate directory when we did git clone
+284.21	290.49	now we see the description of actual files which we need to create
+292.12	300.07	all datasets in kaldi recipies are usually stored under data directory
+303.41	305.04	let's make data
+306.62	313.90	and in this recipy we will have two datasets one is test and another one is train
+361.33	369.64	so in kaldi datasets are usually described in text files
+370.43	391.67	and the first field is usually some id for some item most it's utterance or recording id and other fields are some attributes for that item
+392.81	400.57	for example here we the description of speakers genders file
+400.93	406.13	it lists eh all the speakers and their genders
+406.83	414.17	we will not create this file because i'ts not needed for most of the systems
+417.63	427.84	okay the next file is wav dot scp and it's actually very important file because it lists audio files
+438.47	449.76	so normally ehm normally it can be either utterance or recording id
+449.77	459.95	in this case we see utterance id because it's only one utterance per recording
+462.09	472.59	one utterance is the shortest unit of data in speech recognition systems
+478.04	486.61	so as you can see we just need to create a list of files and give them names
+518.07	537.72	we will go one by one over all four speakers and list files for each speaker and direct this list to wav scp
+537.80	540.58	so let's start from jackson
+543.73	547.44	here are all the files by jackson
+547.89	558.38	you can use this pattern star jackson star to list all files with this string in the name
+560.89	575.74	now we will use a short eh no we will not use awk we will use a for loop in bash
+579.80	589.20	so f in this case is variable which contains one file name or the name of one file
+595.52	610.87	this bash loop means go over all files and print the name of the file for each of the file
+613.22	620.76	i made a mistake there is one word missing yeah now it's working
+624.25	632.01	okay but we need not only the name of the file the full path of the file we also need an utterance id for it
+633.00	638.77	for this we will use eh bash subcommand
+641.38	647.26	so basename this file name dot wav
+649.73	655.07	it just prints the name of the file without directory and without dot wav in the end
+658.61	663.36	we can use this as a name of utterance
+666.65	684.60	but in kaldi we have requirement that every utterance has to start with speaker name otherwise there will be a problem with sorting in datasets
+684.63	692.95	so i will add the name of speaker to the utterance id
+697.55	705.00	okay and finally i need to add file path again
+705.79	715.01	so as you can see we have now utterance id space and file path
+715.48	719.02	let's save this to train wav scp
+728.40	732.42	done now we have this wav scp for jackson
+733.47	741.91	and we can check there are all five hundred recordings for this speaker
+741.92	745.54	now we have to repeat the same for the rest of the speakers
+751.68	754.17	the next one is nicolas
+768.59	780.54	here i will change the redirection command so that it does not create the file from scratch but appends the out to the existing file
+786.06	794.97	now we have one thousand items in this file one thousand lines to say more precisely
+795.38	798.01	and we have nicolas in the end
+799.91	802.75	next one is theo
+824.97	830.61	and finally this strange name yweweler
+833.70	848.75	we will actually use it for testing because we would like to know how well our system would work on speakers which it didn't see in the training data
+857.32	867.69	here we can still use append redirection but since we don't have this file yet it will be created from scratch
+867.70	871.31	we could do it for training data as well
+885.99	889.68	i think we have finished the wav scp part
+892.69	895.13	the next one is text
+895.98	905.89	for this file we have again the utterance id and the transcription for this utterance
+916.62	934.10	ehm we will use the name of the utterance to infer the transcriptions since we know that the name already contains the digit which is pronounced in every file
+934.11	950.21	for example all utterances with zero contain the pronunciation of the digit zero
+951.92	957.23	to get list of all such utterances we will use grep command
+958.16	987.81	and here i specify underscore zero underscore so that we don't get for example the utterances which just end with zero which would be incorrect because we don't actually know what is contained in this utterance based on just knowing that it ends with zero we need utterance containing zero in the middle
+998.96	1014.81	now i will actually use awk to print the first field and then the transcription which is predefined it's just zero
+1025.14	1051.25	awk is quite useful for working with ehm space separated text files because it breaks all fields automatically by space and it has some handy operations to work with ehm values listed from these files
+1054.70	1056.93	let's check
+1059.17	1064.40	yeah that looks correct
+1066.39	1074.96	now we have to repeat the same for all ten digits which is a bit boring
+1145.19	1152.50	okay i think i'm done with text for train dataset let's see what we have there
+1169.63	1176.53	yeah it's one thousand five hundred utterances that's good
+1176.78	1182.66	now i have to repeat the same for training data testing set
+1275.08	1279.46	okay that's this looks correct
+1279.58	1285.71	we have all five hundred utterances from theo
+1289.34	1308.06	yeah as you can see for example in this case we have three underscore three as a part of utterance name but it does not mean that the transcription would be three because three is not the digit
+1308.07	1320.94	it's just an id of the utterance the digit is six and it is surrounded by two underscores that's the reason why we used two underscores in grep
+1329.78	1334.23	the next file us utterance to speaker
+1335.22	1343.50	it should be again the same utterance id and speaker id separated by space
+1349.24	1359.77	it should be actually easier we just need to grep four times per dataset per in total
+1360.09	1368.76	three times in the training and one time in testing
+1390.16	1395.72	hm i think i made a mistake in the test set
+1396.03	1405.37	it should not be theo it should be yweweler
+1407.77	1409.83	i'm sorry
+1463.04	1472.50	okay that looks better but now i would need to let's just check we also have theo
+1479.63	1487.93	now text file contains wrong utterances
+1488.80	1500.27	since i know that the only difference is the speaker name i can quickly fix it with sed
+1530.90	1533.56	this looks better
+1539.02	1547.62	yes i can find this utterance so wav scp and text look consistent
+1557.12	1561.90	okay where did we stop
+1562.91	1573.62	it was train and it was speaker jackson
+1590.90	1593.57	yeah that looks good
+1605.24	1612.11	now we have to do the same for nicolas and theo
+1657.29	1660.53	okay looks good
+1665.94	1670.59	we have theo we have nicolas we have jackson
+1671.85	1679.74	now we need ywelwer yweweler hm
+1685.61	1688.66	and we need to do the same test
+1713.84	1715.59	cool
+1717.92	1736.86	okay the next is corpus and it should be in data local and this is just a text file for language model training
+1736.90	1749.40	language model training is quite different from everything else in asr and because of this the format of data is also different
+1749.50	1759.52	actually it's much simpler in only has data without any labels or attributes it's just text
+1760.82	1781.02	and for this we need to create data local and we will use cut command to get the text from the to get the transcriptions from the text file
+1784.99	1793.84	this option f tells cut that it should use space to split fields in the file
+1803.26	1809.07	and we only sorry that should be d
+1809.81	1812.29	d stands for delimiter
+1812.56	1820.31	f stands for field and we want to only select field number two and everything else
+1822.01	1828.39	and also actually we only have one field in this case because we only have one word
+1828.42	1834.96	but usually we have more than one word in the transcription and we need to select more than one field
+1837.90	1840.81	in this case it's enough to select just only field number two
+1841.62	1847.28	if we would select field number one for example we will see utterance id
+1850.50	1857.53	okay let's save the result to data local corpus txt as the tutorial suggests
+1867.43	1877.78	by the way i use less to evaluate or to look into text files it's quite ehm convenient
+1878.87	1886.05	it can show you any text files of any size
+1887.07	1893.58	and to jump to the end of the file i usually use shift f or capital f
+1895.00	1918.15	and in this case it switches to automatic updates so that if the file was changed the less program will automatically update what it displays and scroll to the new end of the file
+1918.78	1926.90	to exit of this mode of waiting for data i use ctrl c
+1927.15	1938.02	and then i'm in normal mode again and then i can go to the beginning of file again with g g i think
+1938.38	1940.74	actually g is enough
+1944.01	1949.07	oh and shift g can also bring you to the end of the file
+1963.35	1980.50	okay and the next part is language data and it mainly deals with various linguistic resources such as lexicon
+1983.27	1988.44	so in data local we need to create dict directory
+1996.33	2000.19	and there we should create lexicon txt
+2010.06	2028.70	i use vim editor you can use for example nano if you are not familiar with vim because vim has quite special way to operate and it might be inconvenient for you if you are not used to it
+2034.04	2044.12	basically we need to copy paste this contents and we will have the pronunciation dictionary for our system
+2063.99	2082.46	so here we have all our words which are just digits and phonetic transcription for them with some pseudo phonetic alphabet so to say
+2082.78	2101.90	and two additional words one is unknown word which is usually used for transcribing or for labeling the audio recordings with some words which are not contained in the dictionary
+2102.36	2133.51	and another one is silence which is used to label parts of the recordings without any speech so that the machine learning algorithm can still get unambiguous labels for any kind audio input and learn meaningful ehm mapping
+2140.35	2151.52	to create a special file which lists all the phones which are not silence
+2152.48	2173.62	it's quite important to separate phones or labels related to speech from all other labels because speech is quite different in the recording from everything else
+2242.54	2247.95	alright i think we have finished the data preparation part
+2248.50	2260.39	i have done everything by hand with just bash commands and would suggest you to do this this way as well
+2260.69	2268.91	just to see what kind of input and output you need to provide to the system
+2268.92	2280.38	normally all these operations are automated using scripts in various languages mainly bash and python
+2280.39	2287.42	and i would encourage you after finishing this tutorial try to write your scripts as well
+2289.10	2300.49	if you write any scripts which create these files automatically please send them to me so that i can check if your understood everything correctly
+2301.29	2312.66	or alternatively you can just evaluate output of your scripts and compare it with files which we created here by hand
+2315.96	2318.62	see you in the next video

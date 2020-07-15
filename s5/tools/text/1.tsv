@@ -1,0 +1,62 @@
+0.00	3.10	hi everyone my name is pavel
+3.11	6.08	i will get you familiar with kaldi toolkit in this module
+6.98	11.87	to start please go to the official website of kaldi kaldi dash asr dot org
+11.88	15.85	on the website please click documentation link
+18.07	24.79	kaldi is a toolkit for speech recognition research and it is intended for speech recognition researchers and professionals
+24.80	32.22	recently it is getting slightly less relevant for the research however it is still very popular in the industry
+32.28	39.15	if you would join a company and would work on speech recognition there most likely you would need to use kaldi
+40.83	46.72	in the next videos i will walk you through kaldi for dummies tutorial
+50.04	61.06	after brief introduction the tutorial lists environment requirements for installation and usage of kaldi
+62.14	72.77	we will use ims server to install and use kaldi therefore we should not worry about the requirements everything should be ready there
+72.78	77.55	to connect to the server we will use terminal application and ssh command
+80.11	86.02	please type ssh your ims login
+86.03	93.49	then the name of the server it's phoenix ims uni stuttgart
+100.57	108.91	on the web server you should change your directory to teamlab project directory
+120.08	126.30	don't type exactly the same what i typed it's my directory you should use your own
+130.61	132.11	alright
+132.12	134.00	now we need to download kaldi
+142.25	147.84	kaldi is open source and it is hosted on github
+147.85	154.10	we just need to run git clone to get a copy of the whole kaldi source code
+224.41	227.54	okay git clone finished
+228.65	235.92	now we have kaldi directory and we go there
+237.94	245.41	you can see the files of the top level of kaldi
+246.63	250.17	now we can go to the installation step
+251.67	255.43	the top are like eh
+255.79	259.74	the top level instructions are located in the install file
+259.82	261.02	let's check it
+264.37	273.53	it tells us to go to tools follow install instructions there then go to src and follow install instructions there
+274.88	279.23	let's go to tools
+279.96	290.47	it is a directory contains scripts to install additional third party tools needed for kaldi or for kaldi recipies
+290.97	292.22	we will talk about them later
+306.34	313.46	so first thing that we need to do is to run this script to check the dependencies
+319.69	324.25	it gives a couple of warnings we can ignore them
+346.07	355.21	now we can run make it will install necessary tools it will involve compilation
+355.22	362.53	at ims we have eh compiler cache by default it's called ccache
+364.38	380.40	and it would be better to disable it because in kaldi we will compile a lot of files and we will quickly run out of disk space for cache
+392.69	400.08	we will disable the compile cache by exporting variable
+400.97	403.16	ccache disable equals one
+403.81	408.78	now we can run make to compile the tools
+409.66	419.30	and we will use j option which tells make to run several compilation jobs in parallel
+420.28	426.62	it is needed for faster installation and faster processing
+426.89	440.27	since we have since we have forty cpu cores on this server we can run make with forty jobs
+471.46	476.70	okay as we see everything went well
+477.89	480.55	tools installation completed
+480.56	483.47	now let's go to src
+483.48	485.74	src stands for source code
+485.99	488.85	this is the actual code of kaldi
+491.86	495.38	let's see the installation instructions
+497.01	504.46	the installation instructions are configure script
+515.64	525.58	okay libraries are not found but at ims we have alternative library called atlas we can use it
+540.66	545.01	now we see a problem with cuda libraries
+545.02	553.17	we actually should disable cuda because it's only needed to train neural networks so far it's not needed
+555.76	560.72	to see how to do it we will call configure script with help option
+564.61	568.28	build with cuda default yes
+568.46	572.69	we will change this option to no
+587.19	597.74	kaldi has been successfully configured now we can compile kaldi using these two make commands
+601.31	607.60	and we specify again forty parallel jobs for the compilation
+638.18	641.05	okay it says done
+641.06	643.95	it means everything went well again
+643.96	648.87	we have successfully downloaded and compiled kaldi
+648.88	651.77	now it's ready for use
+651.86	659.83	and we can go to the next part of kaldi tutorial kaldi directories structure
+659.84	662.30	see you in the next video
