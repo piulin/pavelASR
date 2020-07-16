@@ -17,8 +17,8 @@ tools/extract_wavs.sh tools/text/4.tsv tools/video/4_project.mp4 data/train/wavs
 
 echo "Succeeded :("
 
-############################## wav.scp ########################################
-# create the wav.scp files (test).
+############################# wav.scp ########################################
+### create the wav.scp files (test).
 
 echo "Creating wav.scp"
 
@@ -125,11 +125,11 @@ echo "Succeeded :("
 echo "Extracting text"
 
 if [ -f /tmp/pavel/text/text_test ]; then
-    rm /tmp/pavel/text/text_test
+    rm /tmp/pavel/text/text_test_unsorted
 fi
 
 if [ -f /tmp/pavel/text/text_train ]; then
-    rm /tmp/pavel/text/text_train
+    rm /tmp/pavel/text/text_train_unsorted
 fi
 
 if [ -f data/test/text ]; then
@@ -143,13 +143,14 @@ fi
 mkdir -p /tmp/pavel/text/
 
 # exctract text for testing.
-tools/text_file_extraction.sh tools/text/1.tsv tools/video/1_installation.mp4 /tmp/pavel/text/text_test
-tools/text_file_extraction.sh  tools/text/2.tsv tools/video/2_directories.mp4 /tmp/pavel/text/text_test
+tools/text_file_extraction.sh tools/text/1.tsv tools/video/1_installation.mp4 /tmp/pavel/text/text_test_unsorted
+tools/text_file_extraction.sh  tools/text/2.tsv tools/video/2_directories.mp4 /tmp/pavel/text/text_test_unsorted
 # exctract text for trainig.
-tools/text_file_extraction.sh  tools/text/3.tsv tools/video/3_data.mp4 /tmp/pavel/text/text_train
-tools/text_file_extraction.sh  tools/text/4.tsv tools/video/4_project.mp4 /tmp/pavel/text/text_train
+tools/text_file_extraction.sh  tools/text/3.tsv tools/video/3_data.mp4 /tmp/pavel/text/text_train_unsorted
+tools/text_file_extraction.sh  tools/text/4.tsv tools/video/4_project.mp4 /tmp/pavel/text/text_train_unsorted
 
-
+less /tmp/pavel/text/text_test_unsorted | sort > /tmp/pavel/text/text_test
+less /tmp/pavel/text/text_train_unsorted | sort > /tmp/pavel/text/text_train
 
 split -l $lines_per_file_test /tmp/pavel/text/text_test /tmp/pavel/text/test
 split -l $lines_per_file_train /tmp/pavel/text/text_train /tmp/pavel/text/train
@@ -217,7 +218,7 @@ echo "Fixing things..."
 
 
 utils/validate_data_dir.sh data/train
-utils/validate_data_dir.sh data/train
+utils/validate_data_dir.sh data/test
 
 utils/fix_data_dir.sh  data/train
 utils/fix_data_dir.sh  data/test
@@ -243,7 +244,7 @@ steps/make_mfcc.sh --nj $nj --cmd "$train_cmd" data/train exp/make_mfcc/train $m
 echo "Succeeded :("
 
 
-######################## COMPUTE CMVN STATS ####################################
+####################### COMPUTE CMVN STATS ####################################
 
 echo "CMVN stats..."
 

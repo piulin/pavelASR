@@ -1,2 +1,12 @@
 *.wav
 *.mp4
+s5/conf/*
+s5/data/*
+
+s5/exp/*
+s5/mfcc/*
+s5/utils
+s5/steps
+s5/cmd.sh
+s5/path.sh
+s5/local/
