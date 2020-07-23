@@ -27,7 +27,8 @@ steps/decode.sh --nj 4 --cmd "$decode_cmd" exp/tri1/graph data/test exp/tri1/dec
 
 #################### RESCORE LANGUAGE MODEL ####################################
 ## mail pavel.
-###steps/lmrescore.sh --cmd "$decode_cmd" data/fst_lang data/fst_lang_rescored data/test exp/tri1/
+
+steps/lmrescore.sh --cmd "$decode_cmd" data/fst_lang data/fst_lang_rescored data/test exp/tri1/ exp/tri1_rescored
 
 
 ######################### ALIGN FOR SOME REASON ################################

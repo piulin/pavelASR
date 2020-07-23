@@ -44,7 +44,7 @@ less ../../../../crawler/text.txt | tr '[:lower:]' '[:upper:]' > data/crawler/te
 ############################ EXPAND OUR LEXICON ################################
 
 mv data/local/dict/lexicon.txt data/local/dict/lexicon.txt.bak
-cat ../../../../crawler/dictionary.txt data/local/dict/lexicon.txt.bak | sort  \
+cat ../../../../crawler/crawler_and_training_dictionary.txt data/local/dict/lexicon.txt.bak | sort  \
   >  data/local/dict/lexicon.txt
 sed -i '1d' data/local/dict/lexicon.txt
 
