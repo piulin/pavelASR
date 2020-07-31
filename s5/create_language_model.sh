@@ -52,6 +52,29 @@ mv data/crawler/text.txt data/crawler/text.txt.bak
 cat data/local/corpus.txt data/crawler/text.txt.bak > data/crawler/text.txt
 
 
+#################### MAKE THE DICTIONARY MORE RUSSIAN LIKE #####################
+
+echo "4" >> data/local/dict/nonsilence_phones.txt
+
+sed -i 's/T R/T 4/g' data/local/dict/lexicon.txt
+sed -i 's/D R/D 4/g' data/local/dict/lexicon.txt
+sed -i 's/P R/P 4/g' data/local/dict/lexicon.txt
+sed -i 's/B R/B 4/g' data/local/dict/lexicon.txt
+sed -i 's/G R/G 4/g' data/local/dict/lexicon.txt
+sed -i 's/K R/K 4/g' data/local/dict/lexicon.txt
+
+less data/local/dict/lexicon.txt | awk -F' {2,}|\t' '{print $1}' > /tmp/tokens.txt
+less data/local/dict/lexicon.txt | awk -F' {2,}|\t' '{print $2}' | sed -e 's/ G$/ K/g' > /tmp/phone_swap.txt
+paste /tmp/tokens.txt /tmp/phone_swap.txt > data/local/dict/lexicon.txt
+
+less data/local/dict/lexicon.txt | awk -F' {2,}|\t' '{print $2}' | sed -e 's/ B$/ P/g' > /tmp/phone_swap.txt
+paste /tmp/tokens.txt /tmp/phone_swap.txt > data/local/dict/lexicon.txt
+
+less data/local/dict/lexicon.txt | awk -F' {2,}|\t' '{print $2}' | sed -e 's/ D$/ T/g' > /tmp/phone_swap.txt
+paste /tmp/tokens.txt /tmp/phone_swap.txt > data/local/dict/lexicon.txt
+
+mv data/local/dict/lexicon.txt data/local/dict/lexicon.txt.bak
+less data/local/dict/lexicon.txt.bak | sort | uniq > data/local/dict/lexicon.txt
 
 ########################### PREPARE LANGUAGE THING #############################
 echo "TS" >> data/local/dict/nonsilence_phones.txt
