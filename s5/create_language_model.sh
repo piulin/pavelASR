@@ -38,7 +38,7 @@ echo "Succeeded :("
 
 mkdir -p data/crawler/
 
-less ../../../../crawler/text.txt | tr '[:lower:]' '[:upper:]' > data/crawler/text.txt
+less ../../../../crawler/v2/textv2.txt | tr '[:lower:]' '[:upper:]' > data/crawler/text.txt
 
 
 ############################ EXPAND OUR LEXICON ################################
@@ -51,6 +51,14 @@ sed -i '1d' data/local/dict/lexicon.txt
 mv data/crawler/text.txt data/crawler/text.txt.bak
 cat data/local/corpus.txt data/crawler/text.txt.bak > data/crawler/text.txt
 
+
+## papers
+
+mv data/crawler/text.txt data/crawler/text.txt.bak
+cat data/crawler/text.txt.bak ../../../../extended-corpus/realec/t2 > data/crawler/text.txt
+
+mv data/local/dict/lexicon.txt data/local/dict/lexicon.txt.bak
+cat data/local/dict/lexicon.txt.bak ../../../../extended-corpus/realec/dictionary.txt > data/local/dict/lexicon.txt
 
 #################### MAKE THE DICTIONARY MORE RUSSIAN LIKE #####################
 
