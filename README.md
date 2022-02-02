@@ -14,4 +14,4 @@ age points.
 
 # Report
 
-You can learn more about this work [here](https://github.com/piulin/acoustic-study-galician-portuguese-brazilian/blob/master/report.pdf)
+You can learn more about this work [here](https://github.com/piulin/pavelASR/blob/master/report.pdf)
